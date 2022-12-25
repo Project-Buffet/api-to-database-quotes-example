@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="projectDetails" format="json">
+      <types:shape format="weave" example="examples/exampleProjectDetails.json"><![CDATA[%dw 2.0
+
+type projectDetails = Array<{|  ProjectName: String,   ProjectManager: String,   Description: String,   Stage: String,   Status: String,   Deadline: String,   InstallationType: String,   id: String|}> {"example": "[{\\\"ProjectName\\\":\\\"Olson, MacGyver and Hagenes\\\",\\\"ProjectManager\\\":\\\"Byron Aufderhar PhD\\\",\\\"Description\\\":\\\"aperiam vel totam\\\",\\\"Stage\\\":\\\"Stage 1\\\",\\\"Status\\\":\\\"Status 1\\\",\\\"Deadline\\\":\\\"2022-05-18T05:14:21.283Z\\\",\\\"InstallationType\\\":\\\"InstallationType 1\\\",\\\"id\\\":\\\"1\\\"},{\\\"ProjectName\\\":\\\"Olson, MacGyver and Hagenes\\\",\\\"ProjectManager\\\":\\\"Byron Aufderhar PhD\\\",\\\"Description\\\":\\\"aperiam vel totam\\\",\\\"Stage\\\":\\\"Stage 1\\\",\\\"Status\\\":\\\"Status 1\\\",\\\"Deadline\\\":\\\"2022-05-18T05:14:21.283Z\\\",\\\"InstallationType\\\":\\\"InstallationType 1\\\",\\\"id\\\":\\\"1\\\"}]"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="exampleQuotes" format="json">
+      <types:shape format="weave" example="examples/exampleQuotes.json"><![CDATA[%dw 2.0
+
+type exampleQuotes = Array<{|  quoteID: String,   contactName: String,   company: String,   position: String,   email: String,   phone: String,   hotelIncluded: String,   hotelName: String,   hotelStartDate: String,   hotelEndDate: String,   totalHotelCost: Number {"typeId": "double"},   flightIncluded: String,   fromAirport: String,   departureDate: String,   toAirport: String,   returnDate: String,   cabinClass: String,   "type": String,   flightCost: Number {"typeId": "double"},   trainIncluded: String,   carRentalIncluded: String,   bookingDate: String,   travelAgent: String|}> {"example": "[{\\\"quoteID\\\":\\\"89834989483223\\\",\\\"contactName\\\":\\\"Tua Tagovailoa\\\",\\\"company\\\":\\\"Miami Dolphins\\\",\\\"position\\\":\\\"Quarterback\\\",\\\"email\\\":\\\"tua.tagovailoa@miamidolphins.com\\\",\\\"phone\\\":\\\"786-427-4635\\\",\\\"hotelIncluded\\\":\\\"Yes\\\",\\\"hotelName\\\":\\\"The Ritz-Carlton, Los Angeles\\\",\\\"hotelStartDate\\\":\\\"10\\/15\\/2022\\\",\\\"hotelEndDate\\\":\\\"10\\/19\\/2022\\\",\\\"totalHotelCost\\\":6879.43,\\\"flightIncluded\\\":\\\"Yes\\\",\\\"fromAirport\\\":\\\"MIA\\\",\\\"departureDate\\\":\\\"10\\/15\\/2022\\\",\\\"toAirport\\\":\\\"LAX\\\",\\\"returnDate\\\":\\\"10\\/19\\/2022\\\",\\\"cabinClass\\\":\\\"Business\\\",\\\"type\\\":\\\"Round Trip\\\",\\\"flightCost\\\":5139.91,\\\"trainIncluded\\\":\\\"No\\\",\\\"carRentalIncluded\\\":\\\"No\\\",\\\"bookingDate\\\":\\\"9\\/22\\/2022\\\",\\\"travelAgent\\\":\\\"Mark Brandanowitz\\\"},{\\\"quoteID\\\":\\\"89834989483223\\\",\\\"contactName\\\":\\\"Tyreek Hill\\\",\\\"company\\\":\\\"Miami Dolphins\\\",\\\"position\\\":\\\"Wide Receiver\\\",\\\"email\\\":\\\"tyreek.hill@miamidolphins.com\\\",\\\"phone\\\":\\\"786-449-0302\\\",\\\"hotelIncluded\\\":\\\"Yes\\\",\\\"hotelName\\\":\\\"The Ritz-Carlton, Los Angeles\\\",\\\"hotelStartDate\\\":\\\"10\\/15\\/2022\\\",\\\"hotelEndDate\\\":\\\"10\\/19\\/2022\\\",\\\"totalHotelCost\\\":7943.43,\\\"flightIncluded\\\":\\\"Yes\\\",\\\"fromAirport\\\":\\\"MIA\\\",\\\"departureDate\\\":\\\"10\\/15\\/2022\\\",\\\"toAirport\\\":\\\"LAX\\\",\\\"returnDate\\\":\\\"10\\/19\\/2022\\\",\\\"cabinClass\\\":\\\"Business\\\",\\\"type\\\":\\\"Round Trip\\\",\\\"flightCost\\\":5994.76,\\\"trainIncluded\\\":\\\"No\\\",\\\"carRentalIncluded\\\":\\\"No\\\",\\\"bookingDate\\\":\\\"9\\/22\\/2022\\\",\\\"travelAgent\\\":\\\"Mark Brandanowitz\\\"},{\\\"quoteID\\\":\\\"89834989483223\\\",\\\"contactName\\\":\\\"Xavien Howard\\\",\\\"company\\\":\\\"Miami Dolphins\\\",\\\"position\\\":\\\"Cornerback\\\",\\\"email\\\":\\\"xavien.howard@miamidolphins.com\\\",\\\"phone\\\":\\\"786-994-1123\\\",\\\"hotelIncluded\\\":\\\"Yes\\\",\\\"hotelName\\\":\\\"The Ritz-Carlton, Los Angeles\\\",\\\"hotelStartDate\\\":\\\"10\\/15\\/2022\\\",\\\"hotelEndDate\\\":\\\"10\\/19\\/2022\\\",\\\"totalHotelCost\\\":688.72,\\\"flightIncluded\\\":\\\"Yes\\\",\\\"fromAirport\\\":\\\"MIA\\\",\\\"departureDate\\\":\\\"10\\/15\\/2022\\\",\\\"toAirport\\\":\\\"LAX\\\",\\\"returnDate\\\":\\\"10\\/19\\/2022\\\",\\\"cabinClass\\\":\\\"Business\\\",\\\"type\\\":\\\"Round Trip\\\",\\\"flightCost\\\":4994.67,\\\"trainIncluded\\\":\\\"No\\\",\\\"carRentalIncluded\\\":\\\"No\\\",\\\"bookingDate\\\":\\\"9\\/22\\/2022\\\",\\\"travelAgent\\\":\\\"Mark Brandanowitz\\\"}]"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#8fd52c0c-ab56-482c-b815-4f4b65ed0125">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="exampleQuotes"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>

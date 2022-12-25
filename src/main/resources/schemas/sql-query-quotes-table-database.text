@@ -1,0 +1,185 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2580
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red102\green151\blue104;\red115\green158\blue202;\red238\green238\blue238;
+\red193\green170\blue108;\red192\green192\blue192;\red158\green158\blue158;\red238\green204\blue100;}
+{\*\expandedcolortbl;;\csgenericrgb\c40000\c59216\c40784;\csgenericrgb\c45098\c61961\c79216;\csgenericrgb\c93333\c93333\c93333;
+\csgenericrgb\c75686\c66667\c42353;\csgenericrgb\c75294\c75294\c75294;\csgenericrgb\c61961\c61961\c61961;\csgenericrgb\c93333\c80000\c39216;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs24 \cf2 -- mdengler101010.quotes definition\cf0 \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf3 CREATE
+\f0\b0 \cf4  
+\f1\b \cf3 TABLE
+\f0\b0 \cf4  \cf5 `quotes`\cf4  (\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf4   \cf5 `Name`\cf4  
+\f1\b \cf5 varchar
+\f0\b0 \cf4 (\cf6 100\cf4 ) 
+\f1\b \cf3 DEFAULT
+\f0\b0 \cf4  
+\f1\b \cf3 NULL
+\f0\b0 \cf4 ,\cf0 \
+\cf4   \cf5 `Company`\cf4  
+\f1\b \cf5 varchar
+\f0\b0 \cf4 (\cf6 100\cf4 ) 
+\f1\b \cf3 DEFAULT
+\f0\b0 \cf4  
+\f1\b \cf3 NULL
+\f0\b0 \cf4 ,\cf0 \
+\cf4   \cf5 `Title`\cf4  
+\f1\b \cf5 varchar
+\f0\b0 \cf4 (\cf6 100\cf4 ) 
+\f1\b \cf3 DEFAULT
+\f0\b0 \cf4  
+\f1\b \cf3 NULL
+\f0\b0 \cf4 ,\cf0 \
+\cf4   \cf5 `Email_Address`\cf4  
+\f1\b \cf5 varchar
+\f0\b0 \cf4 (\cf6 100\cf4 ) 
+\f1\b \cf3 DEFAULT
+\f0\b0 \cf4  
+\f1\b \cf3 NULL
+\f0\b0 \cf4 ,\cf0 \
+\cf4   \cf5 `Cell_Phone`\cf4  
+\f1\b \cf5 varchar
+\f0\b0 \cf4 (\cf6 100\cf4 ) 
+\f1\b \cf3 DEFAULT
+\f0\b0 \cf4  
+\f1\b \cf3 NULL
+\f0\b0 \cf4 ,\cf0 \
+\cf4   \cf5 `Hotel_Included`\cf4  
+\f1\b \cf5 varchar
+\f0\b0 \cf4 (\cf6 100\cf4 ) 
+\f1\b \cf3 DEFAULT
+\f0\b0 \cf4  
+\f1\b \cf3 NULL
+\f0\b0 \cf4 ,\cf0 \
+\cf4   \cf5 `Hotel_Name`\cf4  
+\f1\b \cf5 varchar
+\f0\b0 \cf4 (\cf6 100\cf4 ) 
+\f1\b \cf3 DEFAULT
+\f0\b0 \cf4  
+\f1\b \cf3 NULL
+\f0\b0 \cf4 ,\cf0 \
+\cf4   \cf5 `Hotel_Start_Date`\cf4  
+\f1\b \cf5 varchar
+\f0\b0 \cf4 (\cf6 100\cf4 ) 
+\f1\b \cf3 DEFAULT
+\f0\b0 \cf4  
+\f1\b \cf3 NULL
+\f0\b0 \cf4 ,\cf0 \
+\cf4   \cf5 `Hotel_End_Date`\cf4  
+\f1\b \cf5 varchar
+\f0\b0 \cf4 (\cf6 100\cf4 ) 
+\f1\b \cf3 DEFAULT
+\f0\b0 \cf4  
+\f1\b \cf3 NULL
+\f0\b0 \cf4 ,\cf0 \
+\cf4   \cf5 `Hotel_Cost_Full_Stay`\cf4  
+\f1\b \cf5 decimal
+\f0\b0 \cf4 (\cf6 10\cf4 ,\cf6 0\cf4 ) 
+\f1\b \cf3 DEFAULT
+\f0\b0 \cf4  
+\f1\b \cf3 NULL
+\f0\b0 \cf4 ,\cf0 \
+\cf4   \cf5 `Flight_Included`\cf4  
+\f1\b \cf5 varchar
+\f0\b0 \cf4 (\cf6 100\cf4 ) 
+\f1\b \cf3 DEFAULT
+\f0\b0 \cf4  
+\f1\b \cf3 NULL
+\f0\b0 \cf4 ,\cf0 \
+\cf4   \cf5 `Departure_Airport`\cf4  
+\f1\b \cf5 varchar
+\f0\b0 \cf4 (\cf6 100\cf4 ) 
+\f1\b \cf3 DEFAULT
+\f0\b0 \cf4  
+\f1\b \cf3 NULL
+\f0\b0 \cf4 ,\cf0 \
+\cf4   \cf5 `Destination_Airport`\cf4  
+\f1\b \cf5 varchar
+\f0\b0 \cf4 (\cf6 100\cf4 ) 
+\f1\b \cf3 DEFAULT
+\f0\b0 \cf4  
+\f1\b \cf3 NULL
+\f0\b0 \cf4 ,\cf0 \
+\cf4   \cf5 `Return_Date`\cf4  
+\f1\b \cf5 varchar
+\f0\b0 \cf4 (\cf6 100\cf4 ) 
+\f1\b \cf3 DEFAULT
+\f0\b0 \cf4  
+\f1\b \cf3 NULL
+\f0\b0 \cf4 ,\cf0 \
+\cf4   \cf5 `Departure_Date`\cf4  
+\f1\b \cf5 varchar
+\f0\b0 \cf4 (\cf6 100\cf4 ) 
+\f1\b \cf3 DEFAULT
+\f0\b0 \cf4  
+\f1\b \cf3 NULL
+\f0\b0 \cf4 ,\cf0 \
+\cf4   \cf5 `Flight_Class`\cf4  
+\f1\b \cf5 varchar
+\f0\b0 \cf4 (\cf6 100\cf4 ) 
+\f1\b \cf3 DEFAULT
+\f0\b0 \cf4  
+\f1\b \cf3 NULL
+\f0\b0 \cf4 ,\cf0 \
+\cf4   \cf5 `Flight_Cost`\cf4  
+\f1\b \cf5 decimal
+\f0\b0 \cf4 (\cf6 10\cf4 ,\cf6 0\cf4 ) 
+\f1\b \cf3 DEFAULT
+\f0\b0 \cf4  
+\f1\b \cf3 NULL
+\f0\b0 \cf4 ,\cf0 \
+\cf4   \cf5 `Flight_Type`\cf4  
+\f1\b \cf5 varchar
+\f0\b0 \cf4 (\cf6 100\cf4 ) 
+\f1\b \cf3 DEFAULT
+\f0\b0 \cf4  
+\f1\b \cf3 NULL
+\f0\b0 \cf4 ,\cf0 \
+\cf4   \cf5 `Car_Rental_Included`\cf4  
+\f1\b \cf5 varchar
+\f0\b0 \cf4 (\cf6 100\cf4 ) 
+\f1\b \cf3 DEFAULT
+\f0\b0 \cf4  
+\f1\b \cf3 NULL
+\f0\b0 \cf4 ,\cf0 \
+\cf4   \cf5 `Booking_Date`\cf4  
+\f1\b \cf5 varchar
+\f0\b0 \cf4 (\cf6 100\cf4 ) 
+\f1\b \cf3 DEFAULT
+\f0\b0 \cf4  
+\f1\b \cf3 NULL
+\f0\b0 \cf4 ,\cf0 \
+\cf4   \cf5 `Travel_Agent_Forest_Travel`\cf4  
+\f1\b \cf5 varchar
+\f0\b0 \cf4 (\cf6 100\cf4 ) 
+\f1\b \cf3 DEFAULT
+\f0\b0 \cf4  
+\f1\b \cf3 NULL
+\f0\b0 \cf4 ,\cf0 \
+\cf4   \cf5 `quoteId`\cf4  
+\f1\b \cf5 varchar
+\f0\b0 \cf4 (\cf6 100\cf4 ) 
+\f1\b \cf3 DEFAULT
+\f0\b0 \cf4  
+\f1\b \cf3 NULL
+\f0\b0 \cf4 ,\cf0 \
+\cf4   \cf5 `Train_Included`\cf4  
+\f1\b \cf5 varchar
+\f0\b0 \cf4 (\cf6 100\cf4 ) 
+\f1\b \cf3 DEFAULT
+\f0\b0 \cf4  
+\f1\b \cf3 NULL
+\f0\b0 \cf0 \
+\cf4 ) 
+\f1\b \cf3 ENGINE
+\f0\b0 \cf4 =\cf7 InnoDB\cf4  
+\f1\b \cf3 DEFAULT
+\f0\b0 \cf4  \cf7 CHARSET\cf4 =\cf7 latin1\cf8 ;}

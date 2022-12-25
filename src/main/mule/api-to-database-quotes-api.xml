@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:paycor-public-api="http://www.mulesoft.org/schema/mule/paycor-public-api" xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns:snowflake="http://www.mulesoft.org/schema/mule/snowflake"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:bti="http://www.mulesoft.org/schema/mule/ee/bti" xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/bti http://www.mulesoft.org/schema/mule/ee/bti/current/mule-bti-ee.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/snowflake http://www.mulesoft.org/schema/mule/snowflake/current/mule-snowflake.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/paycor-public-api http://www.mulesoft.org/schema/mule/paycor-public-api/current/mule-paycor-public-api.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="eaf2b1f4-1bb7-4c44-be51-e515003822db" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="668814e3-7a12-43c1-8672-51e04389ef79" >
+		<http:request-connection host="632c60465568d3cad8844335.mockapi.io" protocol="HTTPS"/>
+	</http:request-config>
+	<db:config name="Database_Config2" doc:name="Database Config" doc:id="f41922c5-ce75-469f-9028-b7ee34e2b54a" >
+		<db:mssql-connection host="${sqlserver.host}" instanceName="${sqlserver.instance}" port="${sqlserver.port}" user="${sqlserver.user}" password="${sqlserver.password}" databaseName="${sqlserver.database}" />
+	</db:config>
+	<configuration-properties doc:name="Configuration properties" doc:id="850f62dd-f404-472c-b63c-d021b9eae7aa" file="credentials/credentials-file.properties" />
+	<flow name="api-to-database-quotes-example" doc:id="8341cbbb-22fd-44bd-9abb-3b50a5b91dd6" >
+		<http:listener doc:name="Listener" doc:id="069c286c-4ca3-4771-91b0-1767c0236f63" config-ref="HTTP_Listener_config" path="/getQuotes"/>
+		<http:request method="GET" doc:name="GET Quote Data from REST API" doc:id="a6abced7-1a9c-4aa1-b044-49399ffc1650" config-ref="HTTP_Request_configuration" path="/quotes" />
+		<ee:transform doc:name="Transform JSON to Java" doc:id="8fd52c0c-ab56-482c-b815-4f4b65ed0125">
+			<ee:message>
+				<ee:set-payload><![CDATA[output application/java
+---
+payload map ( payload01 , indexOfPayload01 ) -> {
+	Return_Date: payload01.returnDate,
+	Travel_Agent_Forest_Travel: payload01.travelAgent,
+	Hotel_Name: payload01.hotelName,
+	Departure_Airport: payload01.fromAirport,
+	Flight_Class: payload01.cabinClass,
+	Hotel_Start_Date: payload01.hotelStartDate,
+	Title: payload01.position,
+	quoteId: payload01.quoteID,
+	Hotel_Cost_Full_Stay: payload01.totalHotelCost as Number,
+	Departure_Date: payload01.departureDate,
+	Hotel_End_Date: payload01.hotelEndDate,
+	Destination_Airport: payload01.toAirport,
+	Flight_Cost: payload01.flightCost as Number,
+	Cell_Phone: payload01.phone,
+	Hotel_Included: payload01.hotelIncluded,
+	Car_Rental_Included: payload01.carRentalIncluded,
+	Flight_Type: payload01."type",
+	Name: payload01.contactName,
+	Booking_Date: payload01.bookingDate,
+	Company: payload01.company,
+	Flight_Included: payload01.flightIncluded,
+	Email_Address: payload01.email,
+	Train_Included: payload01.trainIncluded
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<foreach doc:name="For Each" doc:id="1684e20b-d7e1-4095-b8a4-4d24230f208b" >
+			<db:select doc:name="Check if Record Exists in Database" doc:id="0267c7c2-6aad-4d67-aa93-fcdbaec05873" config-ref="Database_Config2" target="recordcount">
+			<db:sql><![CDATA[select count(1) as recordcount from quotes where quoteId=:quoteId]]></db:sql>
+			<db:input-parameters><![CDATA[#[{quoteId:payload.quoteId}]]]></db:input-parameters>
+		</db:select>
+			<choice doc:name="Choice" doc:id="9a502eac-c181-4b0c-acbf-340003d7790d">
+			<when expression="#[vars.recordcount.RECORDCOUNT[0]==1]">
+				<db:update doc:name="Update Existing Record" doc:id="0e8f02ba-7e14-46a7-ab07-09de0beb5368" config-ref="Database_Config2">
+					<db:sql><![CDATA[UPDATE quotes SET Name=:Name, Company=:Company, Title=:Title, Email_Address=:Email_Address, Cell_Phone=:Cell_Phone, Hotel_Included=:Hotel_Included, Hotel_Name=:Hotel_Name, Hotel_Start_Date=:Hotel_Start_Date, Hotel_End_Date=:Hotel_End_Date, Hotel_Cost_Full_Stay=:Hotel_Cost_Full_Stay, Flight_Included=:Flight_Included, Departure_Airport=:Departure_Airport, Destination_Airport=:Destination_Airport, Return_Date=:Return_Date, Departure_Date=:Departure_Date, Flight_Class=:Flight_Class, Flight_Cost=:Flight_Cost, Flight_Type=:Flight_Type, Car_Rental_Included=:Car_Rental_Included, Booking_Date=:Booking_Date, Travel_Agent_Forest_Travel=:Travel_Agent_Forest_Travel, quoteId:=quoteId, Train_Included=:Train_Included where quoteId=:quoteId]]></db:sql>
+					<db:input-parameters><![CDATA[#[payload]]]></db:input-parameters>
+				</db:update>
+				<logger level="INFO" doc:name="Logger" doc:id="7e19aa3f-ffc4-4b6c-8546-800d9e1056fa" message='#["\n\n\nExisting quote updated!"]' />
+			</when>
+				<otherwise>
+				<db:insert doc:name="Insert New Record" doc:id="4c2ca782-9371-477d-8157-515e0f9bbbb8" config-ref="Database_Config2">
+					<db:sql><![CDATA[INSERT INTO quotes (
+	Name,
+	Company,
+	Title,
+	Email_Address,
+	Cell_Phone,
+	Hotel_Included,
+	Hotel_Name,
+	Hotel_Start_Date,
+	Hotel_End_Date,
+	Hotel_Cost_Full_Stay,
+	Flight_Included,
+	Departure_Airport,
+	Destination_Airport,
+	Return_Date,
+	Departure_Date,
+	Flight_Class,
+	Flight_Cost,
+	Flight_Type,
+	Car_Rental_Included,
+	Booking_Date,
+	Travel_Agent_Forest_Travel,
+	quoteId,
+	Train_Included
+) VALUES (
+	:Name,
+	:Company,
+	:Title,
+	:Email_Address,
+	:Cell_Phone,
+	:Hotel_Included,
+	:Hotel_Name,
+	:Hotel_Start_Date,
+	:Hotel_End_Date,
+	:Hotel_Cost_Full_Stay,
+	:Flight_Included,
+	:Departure_Airport,
+	:Destination_Airport,
+	:Return_Date,
+	:Departure_Date,
+	:Flight_Class,
+	:Flight_Cost,
+	:Flight_Type,
+	:Car_Rental_Included,
+	:Booking_Date,
+	:Travel_Agent_Forest_Travel,
+	:quoteId,
+	:Train_Included
+)]]></db:sql>
+					<db:input-parameters><![CDATA[#[payload]]]></db:input-parameters>
+				</db:insert>
+				<logger level="INFO" doc:name="Logger" doc:id="1666b271-4985-434c-aaad-1a9d29b725b5" message='#["\n\n\nNew quote created!"]' />
+			</otherwise>
+		</choice>
+		</foreach>
+		<ee:transform doc:name="Transform Message" doc:id="4f76a64a-ab52-475b-a26d-a7b5136e0aa6">
+				<ee:message>
+					<ee:set-payload><![CDATA["Quote(s) moved to Database!"]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+	</flow>
+</mule>
